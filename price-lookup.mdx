@@ -1,0 +1,72 @@
+---
+title: "Price Lookup"
+description: "Apply different fixed rates to a charge based on transaction conditions, using a lookup table."
+---
+
+<Frame>
+  <video
+    controls
+    className="w-full aspect-video rounded-xl"
+    src="REPLACE_WITH_HOSTED_VIDEO_URL.mp4"
+  >
+    Your browser doesn't support embedded video. <a href="REPLACE_WITH_HOSTED_VIDEO_URL.mp4">Download the video</a> instead.
+  </video>
+</Frame>
+
+## Overview
+
+A standard **Fixed Value** charge applies one flat rate to every matching transaction. Price Lookup extends this: instead of a single rate, you define a lookup table where each row maps a set of transaction conditions to its own rate. When a transaction is evaluated, ZenStatement checks it against the table and applies whichever row matches.
+
+This is useful when pricing genuinely varies by segment — for example, by transaction type or volume — but doesn't need the full complexity of tiered or formula-based pricing.
+
+## How it works
+
+Price Lookup is configured inside the charge creation flow, on the **Pricing** step, after selecting **Fixed Value** as the pricing type.
+
+### 1. Choose Conditional lookup
+
+For a Fixed Value charge, ZenStatement offers two ways to set up pricing:
+
+<CardGroup cols={2}>
+  <Card title="Build conditions">
+    A flat rate with optional filtering rules — the charge applies one rate to whichever transactions match.
+  </Card>
+  <Card title="Conditional lookup">
+    The rate itself varies, resolved from a lookup table based on transaction attributes. This is what Price Lookup uses.
+  </Card>
+</CardGroup>
+
+Selecting **Conditional lookup** changes the rest of the step to a lookup-driven configuration.
+
+### 2. Select the transaction file
+
+Choose which transaction file the charge's attributes will be drawn from — the same file-based attribute system used elsewhere in charge configuration (for example, in tiered pricing or conditions).
+
+### 3. Select a lookup table
+
+Pick which lookup table the charge should be based on. A lookup table is a structured rate card: each row defines a transaction type, a count or amount range, a date range, and the rate that applies when a transaction matches that row.
+
+<Tip>
+  You can preview a lookup table's contents directly in the charge creation flow before selecting it, so you can confirm it has the rate structure you expect.
+</Tip>
+
+### 4. Map lookup conditions
+
+Below the table, **Lookup conditions** let you map your transaction's attributes — such as channel or transaction count — to the lookup table's columns, using simple `WHERE [attribute] Equal [column]` logic. You can add multiple condition rows to match on more than one attribute at once.
+
+### 5. Evaluation
+
+Once conditions are mapped, every transaction is checked against the lookup table. Whichever row matches determines the fixed rate applied to that transaction — all without needing a full tiered or formula-based pricing setup.
+
+## When to use Price Lookup vs. other pricing types
+
+| Pricing approach | Best for |
+|---|---|
+| **Fixed Value** (flat) | A single rate that applies to everything, no segmentation needed |
+| **Price Lookup** (Conditional lookup) | A flat rate that varies by segment — transaction type, channel, date range — without weighted scoring |
+| **Tiered (Flat/Volume or Progressive)** | Rate that changes based on cumulative volume within a billing period |
+| **Formula builder** | Rate calculated from a custom expression over transaction attributes |
+
+## Governance
+
+Like all charge configuration in ZenStatement, a charge using Price Lookup goes through the standard maker-checker flow — a checker can review the full lookup table and condition mapping before the charge is approved and becomes eligible for billing.

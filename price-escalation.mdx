@@ -1,0 +1,54 @@
+---
+title: "Price Escalation"
+description: "Schedule automatic, governed rate increases on a charge or plan."
+---
+
+<Frame>
+  <video
+    controls
+    className="w-full aspect-video rounded-xl"
+    src="REPLACE_WITH_HOSTED_VIDEO_URL.mp4"
+  >
+    Your browser doesn't support embedded video. <a href="REPLACE_WITH_HOSTED_VIDEO_URL.mp4">Download the video</a> instead.
+  </video>
+</Frame>
+
+## Overview
+
+Enterprise contracts often include pre-agreed price increases — a 5% annual uplift, or a jump to a fixed price in year two. Until now, applying these changes meant manually editing a charge when the date arrived, with no audit trail explaining why the rate changed.
+
+Price Escalation lets you schedule these increases in advance, directly on a charge or plan feature, so they execute automatically — and still go through the same maker-checker approval as any other billing change.
+
+## How it works
+
+Escalations can be set at the **charge level** or the **plan feature level**, and support four types:
+
+<CardGroup cols={2}>
+  <Card title="Flat %">Increases the rate by a fixed percentage.</Card>
+  <Card title="Flat Amount">Increases the rate by a fixed absolute value.</Card>
+  <Card title="Tier-based">Applies the escalation independently within each pricing tier.</Card>
+  <Card title="Target Price">Moves the rate directly to a specified value on the escalation date.</Card>
+</CardGroup>
+
+Each escalation also has a **basis**, which determines how repeated escalations compound:
+
+- **Simple** — always calculated from the original rate
+- **Compounding** — calculated from the last escalated rate, so increases build on each other over time
+
+## Governance built in
+
+When an escalation date arrives, ZenStatement doesn't change the rate silently. It generates a pending rate change that a checker must approve — the same governance flow used for any other charge update. Once approved, the new rate applies going forward; past invoices are untouched.
+
+If a checker rejects the change, the charge reverts to its prior rate and the maker is notified with the reason.
+
+## Hierarchy-aware by default
+
+If a parent customer's plan includes an escalation, child entities inherit it automatically — unless an override is explicitly set at the child level. You don't need to configure the same escalation multiple times across a hierarchy.
+
+## Full audit trail
+
+Every escalation is logged in the Audit Trail: the original rate, the new rate, the type and basis used, who configured it, who approved it, and when it took effect.
+
+<Tip>
+  No competitor in this space supports native price escalations — most require manual contract amendments or external spreadsheets to track scheduled increases. Price Escalation makes this a governed, native capability.
+</Tip>

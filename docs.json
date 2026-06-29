@@ -1,0 +1,41 @@
+{
+  "$schema": "https://mintlify.com/docs.json",
+  "theme": "mint",
+  "name": "ZenStatement",
+  "colors": {
+    "primary": "#0E4A4A",
+    "light": "#3FA6A6",
+    "dark": "#0A3535"
+  },
+  "favicon": "/images/favicon.svg",
+  "navigation": {
+    "tabs": [
+      {
+        "tab": "Docs",
+        "groups": [
+          {
+            "group": "Get Started",
+            "pages": [
+              "index"
+            ]
+          },
+          {
+            "group": "Billing",
+            "pages": [
+              "billing/price-escalation",
+              "billing/price-lookup"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "navbar": {
+    "links": [
+      {
+        "label": "Support",
+        "href": "mailto:support@zenstatement.com"
+      }
+    ]
+  }
+}
