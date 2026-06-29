@@ -1,0 +1,19 @@
+---
+title: "Flat/Volume Tiered"
+description: "Tiered pricing where the rate changes per slab, applied to total volume."
+---
+
+Flat/Volume Tiered pricing defines rate tiers (From → To → rate). Once total volume crosses into a tier, that tier's rate applies to the **entire** volume — not just the portion within that slab. This differs from Progressive Tiered, where each slab is rated independently.
+
+## Configuration
+
+The maker defines tier rows, selects a range basis (Percentage, Unit Price, or Flat Pricing), and sets an attribute aggregation method:
+
+- **Sum** — totals the numeric value of the selected attribute across matching transactions
+- **Count** — counts the number of matching transaction rows
+
+Tiered pricing draws from **transaction file attributes** — the maker selects a transaction list (e.g. a transaction report) and picks one or more attributes as the charge basis.
+
+<Note>
+  A full walkthrough with screenshots is coming soon.
+</Note>

@@ -1,0 +1,34 @@
+---
+title: "Billing Overview"
+description: "How billing works in ZenStatement: charges, the creation flow, and where pricing fits in."
+---
+
+Billing in ZenStatement centers on **charges** — billing entries that can be one-time or recurring, configured against a customer and plan. Every charge goes through the same four-step creation flow:
+
+<Steps>
+  <Step title="Basic Information">
+    Charge name, description, and the customer and plan it belongs to.
+  </Step>
+  <Step title="Pricing">
+    How the charge amount is calculated. See <a href="/pricing-models/fixed-value">Pricing Models</a> for the available approaches.
+  </Step>
+  <Step title="Billing Cadence">
+    The billing frequency for the charge.
+  </Step>
+  <Step title="Conditions">
+    Which transactions the charge applies to.
+  </Step>
+</Steps>
+
+Every charge — regardless of pricing model — goes through ZenStatement's maker-checker governance flow before it's active: a maker configures it, and a checker reviews and approves before it takes effect.
+
+## Where to go next
+
+<CardGroup cols={2}>
+  <Card title="Pricing Models" href="/pricing-models/fixed-value">
+    Explore the different ways a charge's rate can be calculated.
+  </Card>
+  <Card title="Account Reconciliation" href="/recon/overview">
+    See how transactions are matched once billing is configured.
+  </Card>
+</CardGroup>
