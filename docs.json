@@ -11,19 +11,42 @@
   "navigation": {
     "tabs": [
       {
-        "tab": "Docs",
+        "tab": "ZenStatement",
         "groups": [
           {
-            "group": "Get Started",
+            "group": "About ZenStatement",
             "pages": [
               "index"
             ]
           },
           {
+            "group": "Account Reconciliation",
+            "pages": [
+              "recon/overview"
+            ]
+          },
+          {
             "group": "Billing",
             "pages": [
-              "billing/price-escalation",
-              "billing/price-lookup"
+              "billing/overview"
+            ]
+          },
+          {
+            "group": "Pricing Models",
+            "pages": [
+              "pricing-models/fixed-value",
+              "pricing-models/fixed-percentage",
+              "pricing-models/flat-volume-tiered",
+              "pricing-models/progressive-tiered",
+              "pricing-models/retrospective",
+              "pricing-models/price-escalation",
+              "pricing-models/price-lookup"
+            ]
+          },
+          {
+            "group": "Treasury",
+            "pages": [
+              "treasury/overview"
             ]
           }
         ]
