@@ -61,7 +61,27 @@ Add this to your `claude_desktop_config.json`:
 - **Windows:** `%APPDATA%\Claude\claude_desktop_config.json`
 
 ```json
-
+{
+  "mcpServers": {
+    "zenstatement-sql-analysis": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "mcp-remote",
+        "http://127.0.0.1:3000/mcp",
+        "--transport",
+        "http-only",
+        "--allow-http",
+        "--allow-localhost",
+        "--header",
+        "Authorization: Bearer ${MCP_JWT}"
+      ],
+      "env": {
+        "MCP_JWT": "paste-token-from-npm-run-mint-jwt"
+      }
+    }
+  }
+}
 ```
 
 After saving, **fully quit and relaunch Claude Desktop**. Your ZenStatement tools will appear in the tools panel (the hammer icon in the input bar).
