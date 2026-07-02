@@ -48,6 +48,13 @@
             "pages": [
               "treasury/overview"
             ]
+          },
+          {
+            "group": "Creo",
+            "pages": [
+              "Creo/api-tokens",
+              "Creo/mcp-setup"
+            ]
           }
         ]
       }
