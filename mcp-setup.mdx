@@ -1,0 +1,305 @@
+---
+title: "ZenStatement MCP Connector — Setup & Usage Guide"
+description: "Connect Claude, ChatGPT, and Gemini to your ZenStatement billing, reconciliation, and treasury data using the Model Context Protocol."
+---
+
+### Overview
+
+The ZenStatement MCP connector lets AI assistants query your billing, reconciliation, and treasury data through the [Model Context Protocol](https://modelcontextprotocol.io). Connect your AI tools to ZenStatement and ask questions in natural language — no custom integration code required.
+
+| | |
+|---|---|
+| **Protocol** | Model Context Protocol (MCP) over stdio |
+| **Authentication** | API Token |
+| **Supported clients** | Claude, ChatGPT, Gemini CLI |
+| **Version** | 1.0.0 |
+
+---
+
+### Prerequisites
+
+Before connecting, you'll need:
+
+- A **ZenStatement account** with Developer access
+- A valid **API token** — generate one in **Settings → Developer → API Tokens**
+- **Node.js 18 or later** — check with `node --version`. Install from [nodejs.org](https://nodejs.org) if needed
+- One of the supported AI clients installed and signed in
+
+---
+
+### Getting Started
+
+**Step 1 — Generate an API Token**
+
+Go to **Settings → Developer → API Tokens** and create a new token. Copy it immediately — it will not be shown again after creation. Tokens expire after a maximum of 90 days.
+
+<Frame>
+  <img src="/images/mcp-api-tokens-screen.png" alt="API Tokens screen in ZenStatement Developer Settings — showing the Generate Token button and token list" />
+</Frame>
+
+**Step 2 — Connect your AI client**
+
+Follow the setup instructions for your client below.
+
+**Step 3 — Verify the connection**
+
+Ask your AI assistant something like:
+
+> "List my ZenStatement customers"
+
+A successful response confirms the server is connected and your token is valid.
+
+---
+
+### Setup by client
+
+#### Claude
+
+Add this to your `claude_desktop_config.json`:
+
+- **macOS:** `~/Library/Application Support/Claude/claude_desktop_config.json`
+- **Windows:** `%APPDATA%\Claude\claude_desktop_config.json`
+
+```json
+{
+  "mcpServers": {
+    "zenstatement": {
+      "command": "npx",
+      "args": ["-y", "@zenstatement/mcp-server"],
+      "env": {
+        "ZENSTATEMENT_API_TOKEN": "YOUR_API_TOKEN_HERE"
+      }
+    }
+  }
+}
+```
+
+After saving, **fully quit and relaunch Claude Desktop**. Your ZenStatement tools will appear in the tools panel (the hammer icon in the input bar).
+
+<Frame>
+  <img src="/images/mcp-claude-tools-panel.png" alt="Claude Desktop tools panel showing ZenStatement tools available after connection" />
+</Frame>
+
+---
+
+#### ChatGPT
+
+<Note>
+  ChatGPT MCP support is currently in beta and requires a **ChatGPT Plus or Pro** subscription with Developer Mode enabled.
+</Note>
+
+1. Open ChatGPT and go to **Settings → Apps → Advanced Settings**
+2. Enable **Developer Mode**
+
+<Frame>
+  <img src="/images/mcp-chatgpt-developer-mode.png" alt="ChatGPT Settings showing Developer Mode toggle enabled under Apps → Advanced Settings" />
+</Frame>
+
+3. Return to **Apps** and click **Create App**
+4. Name your connector (e.g. "ZenStatement") and paste your server URL:
+
+```
+https://mcp.zenstatement.com/mcp
+```
+
+5. In the Authentication field, select **API Token** and paste your ZenStatement API token
+6. Save — ZenStatement tools will now be available in ChatGPT chat, deep research, and the Playground
+
+<Frame>
+  <img src="/images/mcp-chatgpt-connector-form.png" alt="ChatGPT Create App form with ZenStatement server URL and API token filled in" />
+</Frame>
+
+To refresh tools after an update, go to **Settings → Apps**, open your ZenStatement connector, and click **Refresh**.
+
+---
+
+#### Gemini CLI
+
+<Warning>
+  Gemini CLI redacts environment variables matching sensitive patterns (including `*TOKEN*` and `*KEY*`) from the base shell environment for security. You must explicitly declare the token inside the `env` block — it will not be inherited automatically from your shell.
+</Warning>
+
+<Warning>
+  Do not use underscores in MCP server names. Use `zenstatement`, not `zen_statement`. Underscores cause Gemini CLI's policy parser to silently misinterpret the server identity.
+</Warning>
+
+Open `~/.gemini/settings.json` and add the `zenstatement` block inside `mcpServers`:
+
+```json
+{
+  "mcpServers": {
+    "zenstatement": {
+      "command": "npx",
+      "args": ["-y", "@zenstatement/mcp-server"],
+      "env": {
+        "ZENSTATEMENT_API_TOKEN": "YOUR_API_TOKEN_HERE"
+      }
+    }
+  }
+}
+```
+
+Save the file, then restart Gemini CLI. To verify the connection, run `/mcp` — ZenStatement should appear with a green status and a list of available tools.
+
+<Frame>
+  <img src="/images/mcp-gemini-cli-verification.png" alt="Gemini CLI /mcp output showing ZenStatement with a green status indicator and list of available tools" />
+</Frame>
+
+---
+
+### Available Tools
+
+All tools are **read-only**. They cannot create, update, or delete data in ZenStatement.
+
+**Customers**
+
+| Tool | Description |
+|---|---|
+| `customers_list` | List customers with optional filtering by name or hierarchy |
+| `customers_get` | Get a single customer by ID |
+
+**Plans**
+
+| Tool | Description |
+|---|---|
+| `plans_list` | List plans with optional filtering by customer or status |
+| `plans_get` | Get a single plan by ID, including pricing and feature configuration |
+
+**Charges**
+
+| Tool | Description |
+|---|---|
+| `charges_list` | List charges with filtering by customer, plan, type, or status |
+| `charges_get` | Get a single charge by ID, including pricing model and escalation config |
+
+**Billing Calculations**
+
+| Tool | Description |
+|---|---|
+| `billing_calculations_list` | List billing calculations with filtering by customer, plan, or period |
+| `billing_calculations_get` | Get a single billing calculation by ID |
+
+**Invoices**
+
+| Tool | Description |
+|---|---|
+| `invoices_list` | List invoices with filtering by customer, status, or date range |
+| `invoices_get` | Get a single invoice by ID |
+
+**Credit Notes**
+
+| Tool | Description |
+|---|---|
+| `credit_notes_list` | List credit notes with filtering by customer or invoice |
+| `credit_notes_get` | Get a single credit note by ID |
+
+**Approvals**
+
+| Tool | Description |
+|---|---|
+| `approvals_list` | List pending approvals with filtering by type or assignee |
+| `approvals_get` | Get a single approval item by ID |
+
+**Reconciliation**
+
+| Tool | Description |
+|---|---|
+| `recon_matches_list` | List reconciliation matches with filtering by status or date range |
+| `recon_exceptions_list` | List unmatched or exception items |
+
+---
+
+### Examples
+
+Here are some things you can ask your AI assistant once connected:
+
+**Customer overview**
+> "List all active customers and their current plan"
+
+**Charge lookup**
+> "Show me all Fixed Value charges for Alpha Corp"
+
+**Pending approvals**
+> "What billing changes are waiting for checker approval right now?"
+
+**Invoice status**
+> "Which invoices for Beta Industries are overdue?"
+
+**Reconciliation**
+> "Are there any unmatched transactions from last month?"
+
+**Billing calculation**
+> "Pull up the latest billing calculation for Gamma Group"
+
+The AI assistant will automatically call the right tools and combine results to answer your question.
+
+<Frame>
+  <img src="/images/mcp-example-response.png" alt="Example AI assistant response showing ZenStatement data returned from an MCP tool call" />
+</Frame>
+
+---
+
+### Troubleshooting
+
+**Tools aren't appearing in my client**
+- Confirm Node.js 18+ is installed: `node --version`
+- Check your config file for JSON syntax errors — a single missing comma or bracket prevents it from parsing
+- Make sure you replaced `YOUR_API_TOKEN_HERE` with your actual token
+- Restart your client fully (Claude Desktop only reads config at startup; Gemini CLI requires a restart after changes to `settings.json`)
+
+**Authentication error**
+Your token may be expired, revoked, or copied incorrectly. Go to **Settings → Developer → API Tokens**, generate a fresh token, and update the `ZENSTATEMENT_API_TOKEN` value in your config file.
+
+**Gemini CLI: tools not appearing even after restart**
+Run `/mcp reload` inside the Gemini CLI to force it to re-query the server for its capabilities. If the server still doesn't appear, check for underscore characters in the server name — use `zenstatement`, not `zen_statement`.
+
+**ChatGPT: connector not responding**
+ChatGPT MCP support is in beta. If your connector stops responding, go to **Settings → Apps**, open the ZenStatement connector, and click **Refresh** to re-sync tool metadata.
+
+**No data returned**
+Make sure your ZenStatement account has access to the data you're querying. Actions taken via MCP are scoped to your account's permissions — the same data you can see in the product is what the connector can access.
+
+---
+
+### FAQ
+
+**Do I need a separate token for each client?**
+No. A single API token works across all three clients simultaneously. However, each team member should generate their own token under their own ZenStatement account so that actions are correctly attributed in the audit trail.
+
+**Can AI assistants modify my data?**
+No. All tools are read-only. The connector can only retrieve data — it cannot create, update, approve, or delete anything in ZenStatement.
+
+**Which AI clients are supported?**
+Claude, ChatGPT (Plus/Pro, Developer Mode required), and Gemini CLI.
+
+**What data can I access?**
+You can access the same data available through the ZenStatement product: customers, plans, charges, billing calculations, invoices, credit notes, approvals, and reconciliation data.
+
+**When does my token expire?**
+Tokens expire after a maximum of 90 days from the date of creation. You can see the expiry date for each token in **Settings → Developer → API Tokens**. Generate a replacement before it expires to avoid interruption.
+
+**What if I accidentally expose my token?**
+Revoke it immediately from **Settings → Developer → API Tokens** and generate a new one. Update your config file with the new token and restart your client.
+
+---
+
+### Versioning & Changelog
+
+The ZenStatement MCP connector follows semantic versioning. The current version is **1.0.0**.
+
+Breaking changes will be communicated in advance via email and release notes. Non-breaking additions (new tools, new filterable fields) are deployed continuously.
+
+| Version | Date | Notes |
+|---|---|---|
+| 1.0.0 | 2026 | Initial release — read-only tools across billing, reconciliation, customers, and approvals. Supported clients: Claude, ChatGPT, Gemini CLI |
+
+---
+
+### Support
+
+If you need help or run into issues:
+
+- **Email:** support@zenstatement.com
+- **Documentation:** [ZenStatement Help Center](/)
+
+When reaching out, include the error message and the tool name you were calling so we can help quickly.
