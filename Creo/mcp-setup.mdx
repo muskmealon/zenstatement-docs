@@ -20,8 +20,8 @@ The ZenStatement MCP connector lets AI assistants query your billing, reconcilia
 
 Before connecting, you'll need:
 
-- A **ZenStatement account** with Developer access
-- A valid **API token** — generate one in **Settings → Developer → API Tokens**
+- A **ZenStatement account**
+- A valid **API token** — generate one in **Settings → API Keys**
 - **Node.js 18 or later** — check with `node --version`. Install from [nodejs.org](https://nodejs.org) if needed
 - One of the supported AI clients installed and signed in
 
@@ -31,7 +31,7 @@ Before connecting, you'll need:
 
 **Step 1 — Generate an API Token**
 
-Go to **Settings → Developer → API Tokens** and create a new token. Copy it immediately — it will not be shown again after creation. Tokens expire after a maximum of 90 days.
+Go to **Settings → API Keys** and create a new token. Copy it immediately — it will not be shown again after creation. Tokens expire after a maximum of 90 days.
 
 <Frame>
   <img src="/images/mcp-api-tokens-screen.png" alt="API Tokens screen in ZenStatement Developer Settings — showing the Generate Token button and token list" />
@@ -61,17 +61,7 @@ Add this to your `claude_desktop_config.json`:
 - **Windows:** `%APPDATA%\Claude\claude_desktop_config.json`
 
 ```json
-{
-  "mcpServers": {
-    "zenstatement": {
-      "command": "npx",
-      "args": ["-y", "@zenstatement/mcp-server"],
-      "env": {
-        "ZENSTATEMENT_API_TOKEN": "YOUR_API_TOKEN_HERE"
-      }
-    }
-  }
-}
+
 ```
 
 After saving, **fully quit and relaunch Claude Desktop**. Your ZenStatement tools will appear in the tools panel (the hammer icon in the input bar).
@@ -128,11 +118,21 @@ Open `~/.gemini/settings.json` and add the `zenstatement` block inside `mcpServe
 ```json
 {
   "mcpServers": {
-    "zenstatement": {
+    "zenstatement-sql-analysis": {
       "command": "npx",
-      "args": ["-y", "@zenstatement/mcp-server"],
+      "args": [
+        "-y",
+        "mcp-remote",
+        "http://127.0.0.1:3000/mcp",
+        "--transport",
+        "http-only",
+        "--allow-http",
+        "--allow-localhost",
+        "--header",
+        "Authorization: Bearer ${MCP_JWT}"
+      ],
       "env": {
-        "ZENSTATEMENT_API_TOKEN": "YOUR_API_TOKEN_HERE"
+        "MCP_JWT": "paste-token-from-npm-run-mint-jwt"
       }
     }
   }
