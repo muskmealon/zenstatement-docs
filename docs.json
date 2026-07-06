@@ -14,7 +14,7 @@
         "tab": "ZenStatement",
         "groups": [
           {
-            "group": "About ZenStatement",
+            "group": " ",
             "pages": [
               "index"
             ]
@@ -44,16 +44,16 @@
             ]
           },
           {
-            "group": "Treasury",
+            "group": "Developer",
             "pages": [
-              "treasury/overview"
+              "developer/api-tokens",
+              "developer/mcp-setup"
             ]
           },
           {
-            "group": "Creo",
+            "group": "Treasury",
             "pages": [
-              "Creo/api-tokens",
-              "Creo/mcp-setup"
+              "treasury/overview"
             ]
           }
         ]
