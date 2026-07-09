@@ -44,10 +44,11 @@
             ]
           },
           {
-            "group": "Developer",
+            "group": "Creo",
             "pages": [
               "developer/api-tokens",
-              "developer/mcp-setup"
+              "developer/mcp-setup",
+              "developer/creo-userguide"
             ]
           },
           {
