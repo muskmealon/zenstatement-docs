@@ -14,21 +14,35 @@
         "tab": "ZenStatement",
         "groups": [
           {
-            "group": " ",
+            "group": " Documentation",
             "pages": [
-              "index"
+              "index",
+              "starter-guide",
+              "untitled-page"
             ]
           },
           {
-            "group": "Account Reconciliation",
+            "group": "Product Modules",
             "pages": [
-              "recon/overview"
+              "recon/overview",
+              "recon/billing",
+              "recon/treasury"
             ]
           },
           {
             "group": "Billing",
             "pages": [
-              "billing/overview"
+              "billing/overview",
+              "billing/plans",
+              "billing/untitled-page-1",
+              {
+                "group": "Customers",
+                "pages": []
+              },
+              {
+                "group": "Charges",
+                "pages": []
+              }
             ]
           },
           {
@@ -47,7 +61,6 @@
             "group": "Creo",
             "pages": [
               "developer/api-tokens",
-              "developer/mcp-setup",
               "developer/creo-userguide"
             ]
           },
