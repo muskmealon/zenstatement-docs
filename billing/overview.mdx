@@ -1,67 +1,34 @@
 ---
-title: "Billing Module"
-description: "Pricing configuration, charge creation, approval workflows, invoice generation, and credit notes."
-icon: "file-invoice-dollar"
+title: "Billing Overview"
+description: "How billing works in ZenStatement: charges, the creation flow, and where pricing fits in."
 ---
 
-## What the Billing Module Does
+Billing in ZenStatement centers on **charges** — billing entries that can be one-time or recurring, configured against a customer and plan. Every charge goes through the same four-step creation flow:
 
-The Billing module handles pricing configuration, charge creation, approval workflows, invoice generation, and credit notes. It is one of ZenStatement's two product lines, alongside Accounts Receivable.
+<Steps>
+  <Step title="Basic Information">
+    Charge name, description, and the customer and plan it belongs to.
+  </Step>
+  <Step title="Pricing">
+    How the charge amount is calculated. See <a href="/pricing-models/fixed-value">Pricing Models</a> for the available approaches.
+  </Step>
+  <Step title="Billing Cadence">
+    The billing frequency for the charge.
+  </Step>
+  <Step title="Conditions">
+    Which transactions the charge applies to.
+  </Step>
+</Steps>
 
-It is structured as a fixed chain of stages, each requiring approval or validation before the next stage can begin:
+Every charge — regardless of pricing model — goes through ZenStatement's maker-checker governance flow before it's active: a maker configures it, and a checker reviews and approves before it takes effect.
 
-**Customers → Plans → Charges → Transactions → Billing Calculations → Invoicing & Credit Notes**
+## Where to go next
 
-<Frame caption="The Billing dependency chain. 'M / C' marks a maker-checker approval gate.">
-  <img src="/images/billing-chain.png" alt="Billing dependency chain" />
-</Frame>
-
-## Goals This Module Fulfills
-
-### Governance
-
-Two-role (maker-checker) approval at customer creation, charge creation, billing calculation, and invoice/credit note dispatch.
-
-### Customer Hierarchy
-
-Cascade pricing rules, caps, and commitments from a parent customer to child customers without re-configuration at each level.
-
-### Multi-Currency
-
-Lock an FX rate per customer for consistent billing across cycles.
-
-### Price Escalations
-
-Apply scheduled price increases (Flat %, Flat Amount, Tier-based, or Target Price) without manual re-entry each cycle.
-
-### Pricing Models
-
-Support fixed value, fixed percentage, flat/volume tiered, progressive tiered, and retrospective (post-period) pricing.
-
-### Formula-Based Charges
-
-Calculate charges using custom formulas built on transaction file attributes.
-
-### Transaction Filtering
-
-Filter which transaction rows a given charge applies to, so one uploaded file can feed multiple charges.
-
-### File Validation
-
-Validate uploaded transaction files through three gates — intake, schema, integrity — before use in billing.
-
-### Flexible Cadence
-
-Set a billing cadence per charge, independent of the plan-level cadence.
-
-### Lifecycle Tracking
-
-Track charge status through a defined lifecycle: Pending Approval, Approved, Rejected, Partially Rejected, Pending Invoicing, Invoiced.
-
-### Calculation Approval
-
-Require a separate approval on billing calculations before invoice generation, in addition to charge-level approvals.
-
-### Audit Trail
-
-Maintain creator, approver, and dispatch timestamp on every invoice and credit note.
+<CardGroup cols={2}>
+  <Card title="Pricing Models" href="/pricing-models/fixed-value">
+    Explore the different ways a charge's rate can be calculated.
+  </Card>
+  <Card title="Account Reconciliation" href="/recon/overview">
+    See how transactions are matched once billing is configured.
+  </Card>
+</CardGroup>
