@@ -33,16 +33,12 @@
           {
             "group": "Billing",
             "pages": [
+              "billing/customers",
               "billing/plans",
-              "billing/untitled-page-1",
-              {
-                "group": "Customers",
-                "pages": []
-              },
-              {
-                "group": "Charges",
-                "pages": []
-              }
+              "billing/charges",
+              "billing/transactions",
+              "billing/invoices",
+              "billing/credit-notes"
             ]
           },
           {
