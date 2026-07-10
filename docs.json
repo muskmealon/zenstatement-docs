@@ -24,7 +24,6 @@
           {
             "group": "Product Modules",
             "pages": [
-              "recon/overview",
               "modules/Reconcilliation",
               "modules/Billing",
               "modules/Creo",
