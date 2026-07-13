@@ -25,13 +25,13 @@ Subject to pro-ration rules or validity periods, where applicable.
 A platform charges the same access fee regardless of how much a customer stores.
 
 | Base Item | Fixed Amount |
-|---|---|
+| --- | --- |
 | **Platform Access Fee** | INR 50,000 / month |
 
 With no variables to resolve, the calculation is a direct lookup:
 
 | Usage in the Period | Pricing Logic | Final Charge |
-|---|---|---|
+| --- | --- | --- |
 | Any volume | Constant — Calculated Charge = Fixed Amount | **INR 50,000** |
 
 ---
@@ -48,14 +48,15 @@ With no variables to resolve, the calculation is a direct lookup:
 **Cadence & Validity**
 
 - **Cadence Type** — `One-time` or `Recurring`
-- **Cadence Period** *(Recurring only)* — `Monthly`, `Quarterly`, `Annually`
+- **Cadence Period** _(Recurring only)_ — `Monthly`, `Quarterly`, `Annually`
 - **Step** — interval multiplier (`1` with `Monthly` triggers every month)
 - **Valid From** — start date of charge eligibility
 - **Charge Ends On / Occurrences** — end date, or a fixed number of billing cycles (e.g. `12 occurrences`)
 
 <Frame>
   {/* Screenshot: Fixed Value charge configuration — Charge Details and Billing Cadence fields */}
-  <img src="/images/fixed-value-config.png" alt="Fixed Value charge configuration fields" />
+
+  ![Fixed Value charge configuration fields](/images/fixed-value-config.png)
 </Frame>
 
 ---
@@ -67,7 +68,7 @@ With no variables to resolve, the calculation is a direct lookup:
 ACME Payments India Pvt Ltd pays a flat monthly subscription fee for Enterprise Platform access.
 
 | Field | Value |
-|---|---|
+| --- | --- |
 | Charge Name | Monthly Enterprise Platform Subscription |
 | Customer | ACME Payments India Pvt Ltd |
 | Plan | Enterprise Plan FY26 |
@@ -80,9 +81,13 @@ ACME Payments India Pvt Ltd pays a flat monthly subscription fee for Enterprise 
 
 At the end of each billing cycle (e.g. April 30, 2026), the charge bypasses usage calculation entirely:
 
+---
+
 $$
 \text{Calculated Charge} = \text{INR } 50{,}000
 $$
+
+---
 
 ---
 
@@ -92,9 +97,11 @@ $$
   <Accordion title="Negative amounts">
     The fixed amount must be greater than or equal to 0. Negative values fail validation.
   </Accordion>
+
   <Accordion title="Validity dates">
     The billing run date falls within the Valid From and Charge Ends On window.
   </Accordion>
+
   <Accordion title="Cadence alignment">
     The selected cadence matches invoicing terms, so charges generate on schedule.
   </Accordion>
