@@ -40,7 +40,13 @@
                   "billing/customers/hierarchy-config"
                 ]
               },
-              "billing/plans",
+              {
+                "group": "Plans",
+                "pages": [
+                  "billing/plans/how-to-setup-plans",
+                  "billing/plans/price-escalation"
+                ]
+              },
               "billing/charges",
               "billing/transactions",
               "billing/invoices",
@@ -50,13 +56,17 @@
           {
             "group": "Pricing Models",
             "pages": [
-              "pricing-models/fixed-value",
+              {
+                "group": "Fixed Value",
+                "pages": [
+                  "pricing-models/fixed-value/what-and-how",
+                  "pricing-models/fixed-value/price-lookup"
+                ]
+              },
               "pricing-models/fixed-percentage",
               "pricing-models/flat-volume-tiered",
               "pricing-models/progressive-tiered",
-              "pricing-models/retrospective",
-              "pricing-models/price-escalation",
-              "pricing-models/price-lookup"
+              "pricing-models/retrospective"
             ]
           },
           {
