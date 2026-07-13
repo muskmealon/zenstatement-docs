@@ -34,7 +34,13 @@
             "group": "Billing",
             "pages": [
               "billing/overview",
-              "billing/customers",
+              {
+                "group": "Customers",
+                "pages": [
+                  "billing/customers/add-customer",
+                  "billing/customers/hierarchy-config"
+                ]
+              },
               "billing/plans",
               "billing/charges",
               "billing/transactions",
