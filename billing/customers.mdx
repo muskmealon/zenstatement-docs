@@ -2,3 +2,109 @@
 title: "Customers"
 description: "Create and manage customers in ZenStatement billing."
 ---
+
+
+A Customer is the root of the billing hierarchy — every plan, charge, and invoice in ZenStatement is scoped to one.
+
+---
+sidebarTitle: "Add a new Customer"
+---
+
+Adding customer profiles correctly is essential for downstream plan association, billing calculations, and invoice delivery. Follow this guide to navigate the customer creation wizard.
+
+## Navigation Path
+
+To create a new customer record, navigate to the following path in your Zenstatement dashboard:
+
+```
+Billing > Customers > Add Customer
+```
+
+<Frame>
+  {/* [Step Image Placeholder: Navigation to Billing > Customers showing the Add Customer button] */}
+  <img src="/images/customer-navigation.png" alt="Navigate to Add Customer UI" />
+</Frame>
+
+---
+
+## Step-by-Step UI Procedure
+
+The customer creation wizard uses a structured, multi-section form. A left-side stepper tracks validation progress before submission.
+
+### Step 1: Basic Information
+
+Complete the core identifier and address fields for the profile.
+
+* **Customer Name (Required)**: The official legal or business display name (e.g., `ACME Payments Group`).
+* **Customer Type**: **Business** or **Individual** — determines tax and document rendering.
+* **Valid From (Required)**: The activation date for this profile.
+* **Address Details**: Billing and shipping addresses. A copy toggle is available if they are identical.
+* **Customer Code (Optional)**: A custom unique identifier for external system syncing and accounting reconciliation.
+
+<Frame>
+  {/* [Step Image Placeholder: Basic Information fields in the Customer form] */}
+  <img src="/images/customer-basic-info.png" alt="Basic Information Step" />
+</Frame>
+
+### Step 2: Contact Information
+
+Primary contact details for billing communication and follow-ups.
+
+* **First Name, Last Name, and Salutation (Optional)**: Identifies the primary finance or accounts payable representative.
+
+### Step 3: Hierarchy Structure & Billing Metadata
+
+This step determines how charges roll up, which entity is legally invoiced, and how transaction activity is grouped.
+
+* **Hierarchy Level (Required)**: The position of this record (e.g., `Group`, `Merchant`, `Account`).
+* **Parent Customer (Conditional)**: For a child entity, the parent record it rolls up to.
+
+<Frame>
+  {/* [Step Image Placeholder: Hierarchy selection showing Parent-Child grouping] */}
+  <img src="/images/customer-hierarchy.png" alt="Hierarchy Structure Step" />
+</Frame>
+
+### Step 4: Review and Save
+
+* All mandatory sections on the left-side stepper show a green completion indicator once complete.
+* **Save Customer**, in the top-right corner, publishes the record.
+
+<Frame>
+  {/* [Step Image Placeholder: Final review and Save Customer button highlight] */}
+  <img src="/images/customer-save-button.png" alt="Finalize Customer Profile" />
+</Frame>
+
+---
+
+## Key Metadata Fields
+
+The Billing engine relies on these fields for downstream automation:
+
+<CardGroup cols={2}>
+  <Card title="Valid From Date" icon="calendar">
+    Must be on or before the start date of any associated plan or charge. A future validity date blocks plans or charges from executing calculations on earlier transaction dates.
+  </Card>
+  <Card title="Hierarchy Level & Billing Level" icon="sitemap">
+    Determines where transaction activity is calculated versus where invoices are generated. If a child merchant registers the activity but the parent is the designated Billing Customer, invoices group at the parent level.
+  </Card>
+  <Card title="Tax Type & Tax ID" icon="file-invoice-dollar">
+    Must match the legal entity receiving the invoice. Set correctly at the billing level, this governs document compliance and tax calculations during automated invoice generation.
+  </Card>
+  <Card title="Billing Currency" icon="coins">
+    The default currency for invoice rendering and billing context. This governs exchange rate (FX) handling for multi-currency transactions.
+  </Card>
+</CardGroup>
+
+## Troubleshooting
+
+<AccordionGroup>
+  <Accordion title="Plans or charges are blocked">
+    The customer's **Valid From** date is set after the plan or charge start date.
+  </Accordion>
+  <Accordion title="Invoices are going to the wrong entity">
+    The **Parent Customer** or hierarchy setup determines this. "Billing Enabled" may be configured at this level or at an ancestor level — the effective billing entity is wherever it's set closest to the root.
+  </Accordion>
+  <Accordion title="Tax ID mismatch">
+    Tax IDs need to match the designated billing customer entity, not an operational child account.
+  </Accordion>
+</AccordionGroup>
