@@ -33,6 +33,7 @@
           {
             "group": "Billing",
             "pages": [
+              "billing/overview",
               "billing/customers",
               "billing/plans",
               "billing/charges",
