@@ -2,3 +2,64 @@
 title: "Hierarchy Config"
 description: "Set up and manage customer hierarchy levels in ZenStatement."
 ---
+
+## Overview
+
+Customer Hierarchy structures customer records into a parent-child model — a top-level **Group**, with **Sub-groups** or **Merchants** nested beneath it. Pricing rules, caps, and commitments set on a parent cascade down to its children automatically, and billing can consolidate at the parent level regardless of which child recorded the underlying activity.
+
+<Frame caption="Pricing rules, caps, and commitments set on a parent cascade down to every child beneath it.">
+  ![Example customer hierarchy: Group, Sub-groups, and Merchants](/images/hierarchy-diagram.png)
+</Frame>
+
+---
+
+## Setting Up Hierarchy
+
+Hierarchy is configured as part of the customer creation wizard, in the **Hierarchy Structure** step.
+
+### 1. Navigate to Add Customer
+
+`Billing > Customers > Add Customer`
+
+<Frame>
+  {/* Screenshot: Billing > Customers dashboard with the Add Customer button */}
+
+  ![Navigate to Add Customer](/images/add-customer-navigation.png)
+</Frame>
+
+### 2. Complete Basic and Contact Information
+
+Advance through **Basic Information** and **Contact Information** to reach **Hierarchy Structure** on the left-side stepper.
+
+### 3. Configure Hierarchy Structure
+
+| Field | Notes |
+| --- | --- |
+| **Hierarchy Level**_(Required)_ | Structural tier of this record — e.g. `Group`, `Sub-group`, `Merchant` |
+| **Parent Customer**_(Conditional)_ | The parent entity this record rolls up to. Required for any non-root node; search selects from existing customer records |
+
+<Frame>
+  {/* Screenshot: Hierarchy Structure step with Hierarchy Level and Parent Customer fields */}
+
+  ![Hierarchy Structure fields](/images/hierarchy-structure-config.png)
+</Frame>
+
+### 4. Save
+
+Continue through **Billing**, **Tax Configuration**, and **Custom Attributes**, then **Save** to create the record.
+
+---
+
+## Key Workflow Considerations
+
+### Root Nodes
+
+The top-most record in a hierarchy (e.g. a corporate Group) has no Parent Customer.
+
+### Billing Levels
+
+Billing can be enabled at this specific level or left to roll up to an ancestor. This determines where invoices consolidate — not necessarily at the level where the transaction activity was recorded.
+
+### Cascading Rules
+
+Pricing rules, caps, and commitments configured on a parent apply to every child beneath it without re-configuration at each level.
